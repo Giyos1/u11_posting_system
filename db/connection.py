@@ -15,13 +15,13 @@ class DBManager:
         )
 
     def __enter__(self):
-        return self  # return self so we can call execute()
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         if exc_type:
-            self.conn.rollback()  # rollback on error
+            self.conn.rollback()
         else:
-            self.conn.commit()    # commit on success
+            self.conn.commit()
         self.conn.close()
 
     def execute(self, query, params=None, fetch=False):
@@ -29,7 +29,7 @@ class DBManager:
             cur.execute(query, params)
             if fetch:
                 return cur.fetchall()
-            # no need to commit here; handled in __exit__
+
 
 
 # ---------------- DB FUNCTIONS ----------------
