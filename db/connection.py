@@ -1,8 +1,10 @@
 import psycopg2
 
 
+import psycopg2
+
 class DBManager:
-    def __init__(self, db_name='postgres', db_user='giyos', db_password='12',
+    def __init__(self, db_name='postgres', db_user='postgres', db_password='atash',
                  db_port=5432, db_host='localhost'):
         self.conn = psycopg2.connect(
             database=db_name,
@@ -13,42 +15,45 @@ class DBManager:
         )
 
     def __enter__(self):
-        return self.conn.cursor()
+        return self  # return self so we can call execute()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.conn:
-            self.conn.commit()
-            self.conn.close()
+        if exc_type:
+            self.conn.rollback()  # rollback on error
+        else:
+            self.conn.commit()    # commit on success
+        self.conn.close()
 
     def execute(self, query, params=None, fetch=False):
-        cur = self.conn.cursor()
-        cur.execute(query, params)
-        result = cur.fetchall() if fetch else None
-        self.conn.commit()
-        cur.close()
-        return result
-
-    def close(self):
-        self.conn.close()
+        with self.conn.cursor() as cur:
+            cur.execute(query, params)
+            if fetch:
+                return cur.fetchall()
+            # no need to commit here; handled in __exit__
 
 
 # ---------------- DB FUNCTIONS ----------------
 
 
 def get_vlogs():
-    db = DBManager()
-    rows = db.execute(
-        "SELECT title, description, created_at FROM vlogs ORDER BY created_at DESC",
-        fetch=True
-    )
-    db.close()
-    return rows
-
+    with DBManager() as db:
+        return db.execute(
+            "SELECT id, title, description, created_at FROM vlogs ORDER BY created_at DESC",
+            fetch=True
+        )
 
 def add_vlog(title, description):
-    db = DBManager()
-    db.execute(
-        "INSERT INTO vlogs (title, description) VALUES (%s, %s)",
-        (title, description)
-    )
-    db.close()
+    with DBManager() as db:
+        db.execute(
+            "INSERT INTO vlogs (title, description) VALUES (%s, %s)",
+            (title, description)
+        )
+
+def delete_vlog(id):
+    with DBManager() as db:
+        db.execute(
+            "DELETE FROM vlogs WHERE id = %s",
+            (id,)
+        )
+
+

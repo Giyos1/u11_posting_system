@@ -1,6 +1,6 @@
 from handlers.not_found import not_found
 from handlers.post import post_list, create_post
-
+from handlers.delete_post import delete_post
 
 def handle_request(raw_request: bytes) -> bytes:
     try:
@@ -16,4 +16,6 @@ def handle_request(raw_request: bytes) -> bytes:
         return post_list()
     if method == "POST" and path == "/":
         return create_post(body)
+    if path == "/delete" and method == "POST":
+        return delete_post(body)
     return not_found()

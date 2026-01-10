@@ -7,13 +7,20 @@ from utils.response import response
 def post_list():
     vlogs = get_vlogs()
     vlog_html = ""
-    for title, desc, time in vlogs:
+    for vlog_id, title, desc, time in vlogs:
         vlog_html += f"""
         <div style="border:1px solid #ccc;padding:10px;margin:10px 0">
             <h2>{title}</h2>
             <p>{desc}</p>
             <small>{time}</small>
         </div>
+        
+        
+        <form method="POST" action="/delete">
+            <input type="hidden" name="id" value="{vlog_id}">
+            <button type="submit" style="color:red;">❌ Delete</button>
+        </form>
+    </div>
         """
 
     body = f"""
