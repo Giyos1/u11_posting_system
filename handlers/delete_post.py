@@ -12,7 +12,7 @@ def delete_post(body):
     if vlog_id.isdigit():
         delete_vlog(int(vlog_id))
 
-    return redirect("/")
+    return post_list()
 
 
 def redirect(path):

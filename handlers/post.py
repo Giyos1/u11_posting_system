@@ -31,7 +31,7 @@ def post_list():
       <body>
         <h1>🎥 My Vlogs</h1>
 
-        <form method="POST">
+        <form method="POST" action="/">
           <input name="title" placeholder="Vlog title" required><br><br>
           <textarea name="description" placeholder="Vlog description" required></textarea><br><br>
           <button type="submit">➕ Add Vlog</button>
