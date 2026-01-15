@@ -1,0 +1,105 @@
+* {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f3f4f6;
+      margin: 0;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .add-form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+    }
+
+    .add-form input,
+    .add-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .add-form button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .add-form button:hover {
+      background: #1e40af;
+    }
+
+    .vlog-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease;
+    }
+
+    .vlog-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .vlog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .vlog-header h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .vlog-desc {
+      margin: 12px 0;
+      font-size: 16px;
+      color: #444;
+    }
+
+    .vlog-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .vlog-date {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      color: #dc2626;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      text-decoration: underline;
+    }

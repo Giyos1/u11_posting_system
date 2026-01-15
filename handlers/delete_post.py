@@ -15,6 +15,8 @@ def delete_post(body):
     return post_list()
 
 
+
+
 def redirect(path):
     return (
         "HTTP/1.1 303 See Other\r\n"

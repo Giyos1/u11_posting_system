@@ -1,7 +1,7 @@
 import psycopg2
 
-
 import psycopg2
+
 
 class DBManager:
     def __init__(self, db_name='postgres', db_user='giyos', db_password='12',
@@ -31,7 +31,6 @@ class DBManager:
                 return cur.fetchall()
 
 
-
 # ---------------- DB FUNCTIONS ----------------
 
 
@@ -42,6 +41,16 @@ def get_vlogs():
             fetch=True
         )
 
+
+def find_vlogs(id):
+    with DBManager() as cur:
+        return cur.execute(
+            "SELECT id, title, description, created_at FROM vlogs where id=%s ORDER BY created_at DESC",
+            (id,),
+            fetch=True
+        )
+
+
 def add_vlog(title, description):
     with DBManager() as db:
         db.execute(
@@ -49,11 +58,10 @@ def add_vlog(title, description):
             (title, description)
         )
 
+
 def delete_vlog(id):
     with DBManager() as db:
         db.execute(
             "DELETE FROM vlogs WHERE id = %s",
             (id,)
         )
-
-
