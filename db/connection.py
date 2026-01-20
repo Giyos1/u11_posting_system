@@ -4,7 +4,7 @@ import psycopg2
 
 
 class DBManager:
-    def __init__(self, db_name='postgres', db_user='giyos', db_password='12',
+    def __init__(self, db_name='postgres', db_user='postgres', db_password='atash',
                  db_port=5432, db_host='localhost'):
         self.conn = psycopg2.connect(
             database=db_name,
@@ -56,6 +56,14 @@ def add_vlog(title, description):
         db.execute(
             "INSERT INTO vlogs (title, description) VALUES (%s, %s)",
             (title, description)
+        )
+
+
+def update_vlog(vlog_id, title, content):
+    with DBManager() as db:
+        db.execute(
+            "UPDATE vlogs SET title = %s, description = %s WHERE id = %s",
+            (title, content, vlog_id)
         )
 
 

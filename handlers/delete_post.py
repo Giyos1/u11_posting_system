@@ -1,7 +1,7 @@
 from urllib.parse import parse_qs
 
 from db.connection import delete_vlog
-from utils.response import response
+from utils.response import redirect
 from handlers.post import post_list
 
 
@@ -17,9 +17,4 @@ def delete_post(body):
 
 
 
-def redirect(path):
-    return (
-        "HTTP/1.1 303 See Other\r\n"
-        f"Location: {path}\r\n"
-        "\r\n"
-    )
+redirect('/')
